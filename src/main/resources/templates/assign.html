@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Назначение курса</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #d9e4f5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            width: 420px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-size: 14px;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Назначить студента</h1>
+
+    <form th:action="@{/assign}" method="post">
+
+        <label>Студент</label>
+        <select name="studentId">
+            <option value="">Выберите студента</option>
+            <option th:each="s : ${students}"
+                    th:value="${s.id}"
+                    th:text="${s.firstName} + ' ' + ${s.lastName}">
+            </option>
+        </select>
+
+        <label>Курс</label>
+        <select name="courseId">
+            <option value="">Выберите курс</option>
+            <option th:each="c : ${courses}"
+                    th:value="${c.id}"
+                    th:text="${c.title}">
+            </option>
+        </select>
+
+        <button type="submit">Назначить</button>
+    </form>
+
+    <a href="/" class="home-link">Вернуться на главную</a>
+</div>
+
+</body>
+</html>

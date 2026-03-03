@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Курсы</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1e293b;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        thead {
+            background: #e2e8f0;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        tbody tr {
+            border-top: 1px solid #e5e7eb;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .action-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Список курсов</h1>
+
+<div class="top-bar">
+    <div></div>
+    <a href="/courses/new" class="btn">+ Добавить курс</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Кредиты</th>
+        <th>Студентов</th>
+        <th>Уроков</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c : ${courses}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.title}"></td>
+        <td th:text="${c.credits}"></td>
+        <td th:text="${#lists.size(c.students)}"></td>
+        <td th:text="${#lists.size(c.lessons)}"></td>
+        <td>
+            <a th:href="@{/courses/{id}/lessons/new(id=${c.id})}"
+               class="action-link">Добавить урок</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/" class="back-link">← Вернуться на главную</a>
+
+</body>
+</html>

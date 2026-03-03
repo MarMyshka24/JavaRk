@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>University Management</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 50px;
+            width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            color: #1e293b;
+            font-size: 26px;
+        }
+
+        .menu {
+            display: grid;
+            gap: 18px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            background: #2563eb;
+            color: white;
+            transition: 0.2s ease;
+        }
+
+        .menu a:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Система управления университетом</h1>
+
+    <div class="menu">
+        <a href="/students">Управление студентами</a>
+        <a href="/courses">Управление курсами</a>
+        <a href="/assign">Назначить студента на курс</a>
+    </div>
+</div>
+
+</body>
+</html>

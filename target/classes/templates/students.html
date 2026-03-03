@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Студенты</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .add-btn {
+            display: inline-block;
+            margin: 1.5rem 0;
+            padding: 0.8rem 1.6rem;
+            background: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #e0f2fe;
+            color: #1e40af;
+        }
+
+        td {
+            background: #f8fafc;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .back {
+            display: block;
+            margin: 2.5rem auto 0;
+            text-align: center;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Список студентов</h1>
+
+<a href="/students/new" class="add-btn">Добавить студента</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Email</th>
+        <th>Адрес</th>
+        <th>Телефон</th>
+        <th>Дата рождения</th>
+        <th>Курсы</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${students}">
+        <td th:text="${s.id}"></td>
+        <td th:text="${s.firstName}"></td>
+        <td th:text="${s.lastName}"></td>
+        <td th:text="${s.email}"></td>
+        <td th:text="${s.profile?.address}"></td>
+        <td th:text="${s.profile?.phone}"></td>
+        <td th:text="${s.profile?.birthDate}"></td>
+        <td th:text="${#lists.size(s.courses)}"></td>
+        <td>
+            <button class="btn-delete" th:onclick="'deleteStudent(' + ${s.id} + ')'">Удалить</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/" class="back">← На главную</a>
+
+<script th:inline="javascript">
+    function deleteStudent(id) {
+        if (confirm('Удалить студента?')) {
+            fetch('/api/students/' + id, { method: 'DELETE' })
+                .then(r => {
+                    if (r.ok) window.location.reload();
+                    else alert('Ошибка удаления');
+                })
+                .catch(() => alert('Ошибка связи'));
+        }
+    }
+</script>
+
+</body>
+</html>
